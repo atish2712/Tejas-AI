@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from gtts import gTTS
 import tempfile
+from streamlit_option_menu import option_menu
 
 # Load Environment Variables
 load_dotenv()
@@ -32,7 +33,8 @@ NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 st.set_page_config(
     page_title="AI News Analyst",
     page_icon="📰",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="collapsed"
 )
 st.markdown("""
 <style>
@@ -41,10 +43,6 @@ header[data-testid="stHeader"] {
     background: transparent;
 }
 
-/* Hide Toolbar */
-[data-testid="stToolbar"] {
-    display: none;
-}
 
 /* Hide Footer */
 footer {
@@ -66,9 +64,16 @@ footer {
 );
 }
 
+
 /* Sidebar */
 [data-testid="stSidebar"] {
     background: #111827;
+    width: 300px !important;
+}
+
+/* Sidebar Text */
+[data-testid="stSidebar"] * {
+    color: white;
 }
 
 /* Cards */
@@ -149,22 +154,36 @@ st.sidebar.markdown(
     unsafe_allow_html=True,
 )
 
-category = st.sidebar.radio(
-    "📰 Select Topic",
-    [
-        "Polity",
-        "Economy",
-        "International Relations",
-        "Defence",
-        "Environment",
-        "Science & Technology",
-        "Agriculture",
-        "Judiciary",
-        "Education",
-        "Health"
-    ]
-)
-
+with st.sidebar:
+    category = option_menu(
+        "",
+        [
+            "Polity",
+            "Economy",
+            "International Relations",
+            "Defence",
+            "Environment",
+            "Science & Technology",
+            "Agriculture",
+            "Judiciary",
+            "Education",
+            "Health"
+        ],
+        icons=[
+            "bank",
+            "graph-up",
+            "globe",
+            "shield",
+            "tree",
+            "cpu",
+            "flower1",
+            "balance-scale",
+            "book",
+            "heart-pulse"
+        ],
+        menu_icon="list",
+        default_index=0,
+    )
 
 refresh = st.sidebar.button("🔄 Refresh News")
 
@@ -319,6 +338,10 @@ else:
 st.divider()
 
 st.divider()
+
+
+
+
 
 
 
