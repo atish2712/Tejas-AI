@@ -36,7 +36,25 @@ st.set_page_config(
 )
 st.markdown("""
 <style>
+/* Hide Streamlit Header */
+header[data-testid="stHeader"] {
+    background: transparent;
+}
 
+/* Hide Toolbar */
+[data-testid="stToolbar"] {
+    display: none;
+}
+
+/* Hide Footer */
+footer {
+    visibility: hidden;
+}
+
+/* Remove Top Space */
+.block-container {
+    padding-top: 0rem;
+}
 /* Main App */
 .stApp {
     background: linear-gradient(
@@ -117,7 +135,19 @@ a {
 # -----------------------------
 # Sidebar
 # -----------------------------
-st.sidebar.title("📰 News Topics")
+st.sidebar.markdown(
+    """
+    <h2 style="
+        color:#00F5FF;
+        font-size:32px;
+        font-weight:700;
+        text-shadow:0 0 15px #00F5FF;
+    ">
+        📰 News Topics
+    </h2>
+    """,
+    unsafe_allow_html=True,
+)
 
 category = st.sidebar.radio(
     "📰 Select Topic",
